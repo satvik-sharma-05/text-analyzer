@@ -3,7 +3,26 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pickle
 import numpy as np
+import os
+
+# Memory optimization: Set TensorFlow to use minimal memory
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'  # Suppress TF warnings
+os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
+os.environ['TF_GPU_THREAD_MODE'] = 'gpu_private'
+
 import tensorflow as tf
+
+# Configure TensorFlow for low memory usage
+tf.config.set_soft_device_placement(True)
+try:
+    # Limit TensorFlow memory growth
+    gpus = tf.config.list_physical_devices('GPU')
+    if gpus:
+        for gpu in gpus:
+            tf.config.experimental.set_memory_growth(gpu, True)
+except:
+    pass
+
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import re
 from typing import List, Dict
@@ -20,17 +39,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load model and tokenizer
-try:
-    with open("model.pkl", "rb") as f:
-        model = pickle.load(f)
-    with open("tokenizer.pkl", "rb") as f:
-        tokenizer = pickle.load(f)
-    print("✓ Model and tokenizer loaded successfully")
-except Exception as e:
-    print(f"✗ Error loading model/tokenizer: {e}")
-    model = None
-    tokenizer = None
+# Global variables for lazy loading
+model = None
+tokenizer = None
+
+def load_model_and_tokenizer():
+    """Lazy load model and tokenizer only when needed"""
+    global model, tokenizer
+    if model is None or tokenizer is None:
+        try:
+            with open("model.pkl", "rb") as f:
+                model = pickle.load(f)
+            with open("tokenizer.pkl", "rb") as f:
+                tokenizer = pickle.load(f)
+            print("✓ Model and tokenizer loaded successfully")
+        except Exception as e:
+            print(f"✗ Error loading model/tokenizer: {e}")
+            raise e
+    return model, tokenizer
 
 # Constants from notebook
 MAX_LENGTH = 50
@@ -119,16 +145,15 @@ def predict(request: PredictionRequest):
     if len(request.text) > 5000:
         raise HTTPException(status_code=400, detail="Text input too long (max 5000 characters)")
     
-    # Check if model is loaded
-    if model is None or tokenizer is None:
-        raise HTTPException(status_code=503, detail="Model not loaded")
-    
     try:
+        # Load model on first request (lazy loading)
+        current_model, current_tokenizer = load_model_and_tokenizer()
+        
         # Preprocess input
         input_padded = preprocess_text(request.text)
         
         # Make predictions (model expects 3 inputs for each task)
-        predictions = model.predict({
+        predictions = current_model.predict({
             'emotion_input': input_padded,
             'violence_input': input_padded,
             'hate_input': input_padded
