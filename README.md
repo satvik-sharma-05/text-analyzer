@@ -2,6 +2,12 @@
 
 Multi-Task NLP Classifier that analyzes text for **emotions**, **hate speech**, and **violence indicators** using Deep Learning.
 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge)](https://text-analyzer-lime.vercel.app/)
+[![API](https://img.shields.io/badge/API-Docs-blue?style=for-the-badge)](https://text-analyzer-q4wu.onrender.com/)
+[![Python](https://img.shields.io/badge/Python-3.11-blue?style=for-the-badge&logo=python)](https://www.python.org/)
+[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.16-orange?style=for-the-badge&logo=tensorflow)](https://www.tensorflow.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+
 ## 🌐 Live Demo
 
 - **Frontend**: https://text-analyzer-lime.vercel.app/
