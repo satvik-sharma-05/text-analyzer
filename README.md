@@ -2,6 +2,11 @@
 
 Multi-Task NLP Classifier that analyzes text for **emotions**, **hate speech**, and **violence indicators** using Deep Learning.
 
+## 🌐 Live Demo
+
+- **Frontend**: https://text-analyzer-lime.vercel.app/
+- **Backend API**: https://text-analyzer-q4wu.onrender.com/
+
 ---
 
 ## 📁 Project Structure
@@ -109,14 +114,17 @@ Global Average Pooling + Dropout (0.5) [SHARED]
 
 ## 📊 API Usage
 
+### Live API
+**Base URL**: https://text-analyzer-q4wu.onrender.com
+
 ### Health Check
 ```bash
-GET http://localhost:8000/
+GET https://text-analyzer-q4wu.onrender.com/
 ```
 
 ### Predict
 ```bash
-POST http://localhost:8000/predict
+POST https://text-analyzer-q4wu.onrender.com/predict
 Content-Type: application/json
 
 {
@@ -137,6 +145,11 @@ Content-Type: application/json
   "sub_label": "joy"
 }
 ```
+
+### Local Development
+
+**Backend**: http://localhost:8000  
+**Frontend**: http://localhost:3000
 
 ---
 
@@ -169,19 +182,29 @@ The model learned from real-world training data where:
 
 ## 🚀 Deployment
 
-### Backend → Render
+### ✅ Live Deployment
+
+**Frontend**: https://text-analyzer-lime.vercel.app/  
+**Backend**: https://text-analyzer-q4wu.onrender.com/
+
+### Deploy Your Own
+
+#### Backend → Render
 1. Create new Web Service on Render
 2. Connect your repository
-3. Set build command: `pip install -r requirements.txt`
-4. Set start command: `uvicorn main:app --host 0.0.0.0 --port 10000`
-5. Deploy!
+3. Root directory: `backend`
+4. Build command: `pip install -r requirements.txt`
+5. Start command: `uvicorn main:app --host 0.0.0.0 --port 10000`
+6. Deploy!
 
-### Frontend → Vercel
+#### Frontend → Vercel
 1. Import project to Vercel
 2. Set root directory: `frontend`
 3. Framework preset: Next.js
 4. Add environment variable: `NEXT_PUBLIC_API_URL=<your-backend-url>`
 5. Deploy!
+
+**Note**: See `DEPLOY.md` for detailed deployment instructions.
 
 ---
 

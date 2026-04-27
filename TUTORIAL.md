@@ -3,6 +3,11 @@
 **For**: You (the notebook creator)  
 **Purpose**: Understand everything that was built after your notebook
 
+## 🌐 Live Demo
+
+**Try it now**: https://text-analyzer-lime.vercel.app/  
+**API Endpoint**: https://text-analyzer-q4wu.onrender.com/
+
 ---
 
 ## 📖 Table of Contents

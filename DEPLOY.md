@@ -1,6 +1,15 @@
 # 🚀 Quick Deployment Guide
 
-## Backend → Render
+## ✅ Live Deployment
+
+**Frontend**: https://text-analyzer-lime.vercel.app/  
+**Backend API**: https://text-analyzer-q4wu.onrender.com/
+
+---
+
+## Deploy Your Own
+
+### Backend → Render
 
 1. **Sign up**: https://render.com
 2. **New Web Service** → Connect GitHub repo
@@ -12,7 +21,7 @@
 
 ---
 
-## Frontend → Vercel
+### Frontend → Vercel
 
 1. **Sign up**: https://vercel.com
 2. **Import Project** → Connect GitHub repo
@@ -26,6 +35,10 @@
 
 ## ✅ Done!
 
-Your app is live at: `https://your-app.vercel.app`
+Your app is live!
 
-**Note**: Make sure `model.pkl` and `tokenizer.pkl` are in `backend/` folder before deploying!
+**Example**:
+- Frontend: https://text-analyzer-lime.vercel.app/
+- Backend: https://text-analyzer-q4wu.onrender.com/
+
+**Note**: Make sure `model.h5` and `tokenizer.pkl` are in `backend/` folder before deploying!
