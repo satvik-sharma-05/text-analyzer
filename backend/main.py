@@ -48,8 +48,9 @@ def load_model_and_tokenizer():
     global model, tokenizer
     if model is None or tokenizer is None:
         try:
-            with open("model.pkl", "rb") as f:
-                model = pickle.load(f)
+            # Load Keras model from .h5 file (proper format for Keras models)
+            model = tf.keras.models.load_model("model.h5")
+            # Load tokenizer from .pkl (correct for tokenizer)
             with open("tokenizer.pkl", "rb") as f:
                 tokenizer = pickle.load(f)
             print("✓ Model and tokenizer loaded successfully")
